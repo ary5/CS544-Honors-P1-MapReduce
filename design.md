@@ -8,7 +8,7 @@
 
 ## 1. System Overview
 
-Our project implements a Python-based MapReduce system that runs on a single VM using Docker Compose. It consists of a **client**, a **master (boss)** node, and **four worker containers**, each limited to one CPU core.
+Our project implements a Python-based MapReduce system that runs on a single VM using Docker Compose. It consists of a **client**, a **boss** node, and **four worker containers**, each limited to one CPU core.
 
 We extend traditional MapReduce with **adaptive and key-aware combiner functions**, allowing workers to intelligently reduce intermediate data volumes while minimizing overhead. Our design aims to balance performance optimization, fault tolerance, and clarity of architecture.
 
@@ -20,14 +20,14 @@ We extend traditional MapReduce with **adaptive and key-aware combiner functions
 - **Client:**  
   CLI for uploading data, submitting jobs, and monitoring progress.
   
-- **Boss (Master):**  
+- **Boss:**  
   Coordinates all jobs. Splits input data, assigns map/reduce tasks, and monitors worker status.
 
 - **Workers:**  
   Lightweight FastAPI services that execute map, reduce, and combiner functions. Workers read/write from shared storage and communicate task results via HTTP.
 
 - **Shared Storage:**  
-  Implemented using a **Docker volume** mounted across all containers for simplicity and performance. Avoids HDFS overhead while maintaining shared accessibility.
+  Implemented using a **Docker volume** mounted across all containers **(Shared volume mount)** for simplicity and performance. Avoids HDFS overhead while maintaining shared accessibility.
 
 ---
 
